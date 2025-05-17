@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>WebSocket Logs</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:ital,wght@0,600;1,700&display=swap');
+
+        body {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            font-family: 'Chivo Mono';
+            background-color: black;
+        }
+
+        .scrolling-list {
+            height: 100vh;
+            /* Set the list height to take up the whole screen */
+            overflow-y: auto;
+            /* Enable vertical scrolling when needed */
+            font-family: 'Chivo Mono';
+            font-size: 32px;
+            line-height: 1.6;
+            padding: 10px;
+            background-color: black;
+            color: white;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="scrolling-list" id="logList">
+        <div>Suey Logs</div>
+    </div>
+
+    <script>
+        const logList = document.getElementById('logList');
+
+        // Connect to the WebSocket server
+        const socket = new WebSocket(`ws://${location.host}/logs`);
+
+        // Function to add a new log message to the list
+        function addLogMessage(message) {
+            const logItem = document.createElement('div');
+
+            var core = JSON.parse(message);
+            
+            logItem.textContent = core.Data.Message;
+            logList.appendChild(document.createElement('br'));
+            logList.appendChild(logItem);
+
+            // Scroll to the bottom to show the latest messages
+            logList.scrollTop = logList.scrollHeight;
+        }
+
+        // Event handler for receiving WebSocket messages
+        socket.onmessage = function (event) {
+            const message = event.data;
+            addLogMessage(message);
+        };
+
+    </script>
+</body>
+
+</html>

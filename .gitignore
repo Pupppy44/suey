@@ -1,0 +1,20 @@
+# Key extractor for the Tuya lightbulbs is excluded from the repository.
+# This is because it contains sensitive information and can be downloaded from the below link.
+# Extractor Code: https://github.com/redphx/tuya-local-key-extractor
+Server.KeyExtractor/
+
+# For Server
+Server/node_modules/
+Server/package-lock.json
+Server/keys.json
+
+# For Extension
+Extension/.vs/
+Extension/bin/
+Extension/obj/
+Extension/packages/
+Extension/Suey_TemporaryKey.pfx
+
+# Miscellaneous
+*.ini
+*.ico
